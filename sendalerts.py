@@ -13,8 +13,6 @@ def sendAlerts(users, subs, tweet_text, tweet_user):
                 valid_accounts.append(name)
             break
     for sub in subs_to_send:
-        print(valid_accounts)
-        print(tweet_user.replace('@', ''))
         if tweet_user.replace('@', '') in valid_accounts:
             for user in users:
                 if sub in user.subscriptions[0]:
