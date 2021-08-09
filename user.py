@@ -78,15 +78,3 @@ def getUserConfig():
                 user.vendors = v['vendors']
                 users.append(user)
     return users
-
-if __name__ == '__main__':
-    users = getUserConfig()
-    print(users)
-    print(users[0].phone)
-#    bill = User('Bill')
-#    john = User('John')
-#    bill.phone = '5555555555'
-#    bill.subscriptions = 'PS5'
-#    bill.subscriptions = 'nVidia'
-#    print(bill.subscriptions)
-#    print(john.subscriptions)

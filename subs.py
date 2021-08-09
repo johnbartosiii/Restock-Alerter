@@ -63,8 +63,3 @@ def getSubsConfig():
                 sub.twitter_names = v['twitter_names']
                 subs.append(sub)
     return subs
-
-if __name__ == '__main__':
-    subs = getSubsConfig()
-    print(subs)
-    print(subs[0].keywords)
