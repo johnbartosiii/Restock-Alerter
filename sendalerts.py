@@ -17,8 +17,8 @@ def sendAlerts(users, subs, tweet_text, tweet_user):
             for user in users:
                 if sub in user.subscriptions[0]:
                     if any(vendor.lower() in tweet_text.lower() for vendor in user.vendors[0]):
-                        if user.phone != None:
+                        if user.phone[0] != 'None':
                             sendsms.send(user.phone[0], user.phone[1], tweet_text)
-                        if user.email != None:
+                        if user.email != 'None':
                             sendemail.send(user.email, f'{sub} ALERT', tweet_text)
         
