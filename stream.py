@@ -14,7 +14,7 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, tweet):
         #print(f"{tweet.user.name}:{tweet.text}")
-        sendAlerts(self.users, self.subs, tweet.text)
+        sendAlerts(self.users, self.subs, tweet.text, tweet.user.name)
 
     def on_error(self, status_code):
         if status_code == 420:
