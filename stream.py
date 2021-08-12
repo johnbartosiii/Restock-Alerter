@@ -1,6 +1,7 @@
 import tweepy
 import user
 import subs
+import logging
 from sendalerts import sendAlerts
 from twitconfig import create_api
 
@@ -14,6 +15,7 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, tweet):
         #print(f"{tweet.user.name}:{tweet.text}")
+        logging.info(f'Proccesing tweet from {tweet.user.name} with text {tweet.text}')
         sendAlerts(self.users, self.subs, tweet.text, tweet.user.name)
 
     def on_error(self, status_code):
@@ -36,16 +38,23 @@ def loadSubs(api):
 
 def main():
     '''Loads everything and establishes listener'''
+    logging.basicConfig(format='%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+    datefmt='%d-%m-%Y:%H:%M:%S',
+    level=logging.INFO,
+    filename='alerter.log')
     api = create_api()
     my_users = loadUser()
     my_subs = loadSubs(api)
     myStreamListener = MyStreamListener(api, my_users, my_subs)
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+    logging.info(f'Stream started.')
     listen_IDs = []
     for sub in my_subs:
         for ID in sub.twitterIDs:
             listen_IDs.append(ID)
+    logging.info(f'Listening for tweets from {listen_IDs}.')
     myStream.filter(follow=listen_IDs, is_async=True)
+    logging.info(f'Filter established.')
 
 
 if __name__ == '__main__':
