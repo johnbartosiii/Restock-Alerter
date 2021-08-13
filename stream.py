@@ -15,8 +15,8 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, tweet):
         #print(f"{tweet.user.name}:{tweet.text}")
-        logging.info(f'Proccesing tweet from {tweet.user.name} with text {tweet.text}')
-        sendAlerts(self.users, self.subs, tweet.text, tweet.user.name)
+        logging.info(f'Proccesing tweet from {tweet.user.screen_name} with text {tweet.text}')
+        sendAlerts(self.users, self.subs, tweet.text, tweet.user.screen_name)
 
     def on_error(self, status_code):
         if status_code == 420:
