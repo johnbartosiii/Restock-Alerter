@@ -17,9 +17,12 @@ def sendAlerts(users, subs, tweet_text, tweet_user):
     #print(f'valid accounts: {valid_accounts}')
     for sub in subs_to_send:
         if tweet_user.replace('@', '') in valid_accounts:
+            logging.info(f'Matching tweet user {tweet_user} identified, moving on')
             for user in users:
                 if sub in user.subscriptions[0]:
+                    logging.info(f'Matching sub {sub} identified, moving on')
                     if any(vendor.lower() in tweet_text.lower() for vendor in user.vendors[0]):
+                        logging.info(f'Vendor name in {user.vendors[0]} identified in tweet text, moving on')
                         if user.phone[0] != 'None':
                             logging.info(f'Sending SMS to {user.name}')
                             sendsms.send(user.phone[0], user.phone[1], tweet_text)
